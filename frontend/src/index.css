@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased font-sans;
+  }
+
+  ::selection {
+    @apply bg-moss-200 text-ink;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-moss-600 text-paper px-5 py-3 text-sm font-semibold tracking-wide transition hover:bg-moss-500 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border border-paper-line bg-paper-card text-ink px-5 py-3 text-sm font-semibold tracking-wide transition hover:border-moss-400 hover:text-moss-700 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 text-ink-soft px-3 py-2 text-sm font-medium transition hover:text-moss-600;
+  }
+
+  .field {
+    @apply w-full border border-paper-line bg-paper-card px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-moss-500 focus:ring-1 focus:ring-moss-500;
+  }
+
+  .section-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-moss-500;
+  }
+
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #eef1ec;
+}
+::-webkit-scrollbar-thumb {
+  background: #5b8a6e;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3d5c4a;
+}
+
+/* Hide qr scanner library chrome */
+#qr-reader video {
+  border-radius: 0 !important;
+  object-fit: cover;
+}
+#qr-reader__dashboard_section,
+#qr-reader__dashboard_section_csr,
+#qr-reader__header_message,
+#qr-reader__scan_region > img {
+  display: none !important;
+}
+#qr-reader {
+  border: none !important;
+}

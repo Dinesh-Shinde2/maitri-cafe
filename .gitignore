@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/.venv/
+backend/venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Build
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+backend/.env
+frontend/.env
+frontend/.env.production
+
+# Local DB
+*.db
+backend/maitri.db
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+
+# Python cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
