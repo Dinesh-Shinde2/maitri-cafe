@@ -13,16 +13,29 @@ def seed_db():
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
 
-    # Seed Admin User if not present
-    if not db.query(User).filter(User.username == "admin").first():
+    # Admin from env (prod) — fallback only for local demo
+    admin_username = os.getenv("ADMIN_USERNAME", "admin").strip() or "admin"
+    admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
+    admin_email = os.getenv("ADMIN_EMAIL", "admin@maitricafe.com").strip() or "admin@maitricafe.com"
+    admin_full_name = os.getenv("ADMIN_FULL_NAME", "Maitri Manager").strip() or "Maitri Manager"
+
+    admin = db.query(User).filter(User.username == admin_username).first()
+    if not admin:
         admin = User(
-            username="admin",
-            email="admin@maitricafe.com",
-            hashed_password=get_password_hash("admin123"),
-            full_name="Maitri Manager",
-            role="admin"
+            username=admin_username,
+            email=admin_email,
+            hashed_password=get_password_hash(admin_password),
+            full_name=admin_full_name,
+            role="admin",
         )
         db.add(admin)
+    elif os.getenv("ADMIN_PASSWORD"):
+        # When ADMIN_PASSWORD is set on Render, always sync hash (rotate prod password)
+        admin.hashed_password = get_password_hash(admin_password)
+        admin.email = admin_email
+        admin.full_name = admin_full_name
+        admin.role = "admin"
+
 
     # Seed Cafe Tables (T01 - T08)
     tables_data = [
